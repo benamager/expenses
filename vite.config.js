@@ -1,0 +1,29 @@
+import { VitePWA } from "vite-plugin-pwa";
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
+
+const manifest = {
+  name: "Expenses",
+  short_name: "Expenses",
+  theme_color: "#ffffff",
+  start_url: ".",
+  display: "standalone",
+  background_color: "#ffffff",
+  orientation: "portrait",
+  icons: [
+    {
+      src: "logo_192.png",
+      sizes: "192x192",
+      type: "image/png",
+    },
+    {
+      src: "logo_512.png",
+      sizes: "512x512",
+      type: "image/png",
+    },
+  ],
+};
+
+export default defineConfig({
+  plugins: [react(), VitePWA({ manifest })],
+});
