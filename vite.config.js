@@ -1,3 +1,4 @@
+import * as path from "path"; // For import alias
 import { VitePWA } from "vite-plugin-pwa";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
@@ -26,4 +27,7 @@ const manifest = {
 
 export default defineConfig({
   plugins: [react(), VitePWA({ manifest })],
+  resolve: {
+    alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }], // Allows import alias like @/components/...
+  },
 });
