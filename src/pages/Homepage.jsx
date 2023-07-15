@@ -1,11 +1,16 @@
 import { Link } from "react-router-dom";
+import { AiFillPlusCircle } from "react-icons/ai";
+import ExpenseList from "@/components/ExpenseList";
+import SpentHeading from "@/components/SpentHeading";
 
 export default function Homepage() {
   return (
-    <div>
-      <h1>Homepage</h1>
-      <Link to="/homepage">Homepage</Link>
-      <Link to="/stats">Stats</Link>
-    </div>
+    <>
+      <Link to="add">
+        <AiFillPlusCircle size="35px" className="p-3 box-content ml-auto" />
+      </Link>
+      <SpentHeading />
+      <ExpenseList />
+    </>
   );
 }
