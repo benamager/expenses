@@ -5,8 +5,8 @@ import { useLocation } from "react-router-dom";
 export default function NavBar() {
   const location = useLocation();
 
-  // hide the navbar on the add expense page
-  if (location.pathname === "/add") {
+  // hide the navbar on the expense page
+  if (location.pathname === "/expense") {
     return null;
   }
 

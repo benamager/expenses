@@ -1,22 +1,26 @@
-import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
 import ExpensesContext from "@/contexts/Expenses";
 import { LeadingActions, SwipeableList, SwipeableListItem, SwipeAction, TrailingActions } from "react-swipeable-list";
 import "react-swipeable-list/dist/styles.css";
+import groupExpensesByDay from "@/utils/groupExpensesByDay";
+import useAddExpense from "@/hooks/useDeleteExpense";
 
-function editAction() {
+function editAction(navigate, expense) {
+  // navigate to the expense page with the expense state on swipe
   return (
     <LeadingActions>
-      <SwipeAction onClick={() => console.info("swipe action triggered")} className="bg-blue-300 flex mr-2 rounded-sm">
+      <SwipeAction onClick={() => navigate("expense", { state: expense })} className="bg-blue-300 flex mr-2 rounded-sm">
         <span className="self-center text-center px-2">Edit</span>
       </SwipeAction>
     </LeadingActions>
   );
 }
 
-function deleteAction() {
+function deleteAction(expenseId, deleteExpense) {
   return (
     <TrailingActions>
-      <SwipeAction destructive={true} onClick={() => console.info("swipe action triggered")} className="bg-red-300 flex ml-2 rounded-sm">
+      <SwipeAction destructive={true} onClick={() => deleteExpense(expenseId)} className="bg-red-300 flex ml-2 rounded-sm">
         <span className="self-center text-center px-2">Delete</span>
       </SwipeAction>
     </TrailingActions>
@@ -24,44 +28,41 @@ function deleteAction() {
 }
 
 export default function ExpenseList() {
+  const navigate = useNavigate();
+
   const { expenses } = useContext(ExpensesContext);
+  const [groupedExpenses, setGroupedExpenses] = useState([]);
+  const { deleteExpense } = useAddExpense();
+
+  // group expenses by day
+  useEffect(() => {
+    setGroupedExpenses(groupExpensesByDay(expenses));
+  }, [expenses]);
 
   console.log(expenses);
 
   return (
-    <ul className="mx-4 text-sm">
-      <li className="mb-11">
-        <div className="border-b border-b-slate-100 flex justify-between text-slate-300 ml-11 pb-1">
-          <span>I dag</span>
-          <span>28 DKK</span>
-        </div>
-        <SwipeableList>
-          <SwipeableListItem leadingActions={editAction()} trailingActions={deleteAction()} className="flex items-center mt-2">
-            <span className="text-2xl mr-[20px]">🍔</span>
-            <div className="flex flex-col">
-              <span>Indkøb i netto</span>
-              <span className="text-slate-300">Kategori</span>
-            </div>
-            <span className="ml-auto">200 DKK</span>
-          </SwipeableListItem>
-        </SwipeableList>
-      </li>
-      <li className="mb-11">
-        <div className="border-b border-b-slate-100 flex justify-between text-slate-300 ml-11 pb-1">
-          <span>I dag</span>
-          <span>28 DKK</span>
-        </div>
-        <SwipeableList>
-          <SwipeableListItem leadingActions={editAction()} trailingActions={deleteAction()} className="flex items-center mt-2">
-            <span className="text-2xl mr-[20px]">🍔</span>
-            <div className="flex flex-col">
-              <span>Indkøb i netto</span>
-              <span className="text-slate-300">Kategori</span>
-            </div>
-            <span className="ml-auto">200 DKK</span>
-          </SwipeableListItem>
-        </SwipeableList>
-      </li>
+    <ul className="mx-4 text-sm flex flex-col-reverse">
+      {groupedExpenses.map((group) => (
+        <li key={group.day} className="mb-11">
+          <div className="border-b border-b-slate-100 flex justify-between text-slate-300 ml-11 pb-1">
+            <span>{group.day}</span>
+            <span>{group.total} DKK</span>
+          </div>
+          <SwipeableList className="flex flex-col-reverse">
+            {group.expenses.map((expense) => (
+              <SwipeableListItem key={expense.id} leadingActions={editAction(navigate, expense)} trailingActions={deleteAction(expense.id, deleteExpense)} className="flex items-center mt-2">
+                <span className="text-2xl mr-[20px]">🍔</span>
+                <div className="flex flex-col">
+                  <span className="capitalize">{expense.title}</span>
+                  <span className="text-slate-300">Category</span>
+                </div>
+                <span className="ml-auto">{expense.price} DKK</span>
+              </SwipeableListItem>
+            ))}
+          </SwipeableList>
+        </li>
+      ))}
     </ul>
   );
 }
