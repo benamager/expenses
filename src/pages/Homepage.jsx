@@ -9,7 +9,7 @@ export default function Homepage() {
       <Link to="add">
         <AiFillPlusCircle size="35px" className="p-3 box-content ml-auto" />
       </Link>
-      <SpentHeading />
+      <SpentHeading hasTitle={true} className="" amount={2000.5} />
       <ExpenseList />
     </>
   );
