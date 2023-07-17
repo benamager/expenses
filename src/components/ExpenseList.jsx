@@ -5,12 +5,13 @@ import { LeadingActions, SwipeableList, SwipeableListItem, SwipeAction, Trailing
 import "react-swipeable-list/dist/styles.css";
 import groupExpensesByDay from "@/utils/groupExpensesByDay";
 import useAddExpense from "@/hooks/useDeleteExpense";
+import useFindCategory from "@/hooks/useFindCategory";
 
 function editAction(navigate, expense) {
   // navigate to the expense page with the expense state on swipe
   return (
     <LeadingActions>
-      <SwipeAction onClick={() => navigate("expense", { state: expense })} className="bg-blue-300 flex mr-2 rounded-sm">
+      <SwipeAction onClick={() => navigate("expense", { state: expense })} className="bg-blue-300 flex mr-3 rounded-sm">
         <span className="self-center text-center px-2">Edit</span>
       </SwipeAction>
     </LeadingActions>
@@ -20,7 +21,7 @@ function editAction(navigate, expense) {
 function deleteAction(expenseId, deleteExpense) {
   return (
     <TrailingActions>
-      <SwipeAction destructive={true} onClick={() => deleteExpense(expenseId)} className="bg-red-300 flex ml-2 rounded-sm">
+      <SwipeAction destructive={true} onClick={() => deleteExpense(expenseId)} className="bg-red-300 flex ml-3 rounded-sm">
         <span className="self-center text-center px-2">Delete</span>
       </SwipeAction>
     </TrailingActions>
@@ -29,6 +30,7 @@ function deleteAction(expenseId, deleteExpense) {
 
 export default function ExpenseList() {
   const navigate = useNavigate();
+  const { findCategory } = useFindCategory();
 
   const { expenses } = useContext(ExpensesContext);
   const [groupedExpenses, setGroupedExpenses] = useState([]);
@@ -39,8 +41,6 @@ export default function ExpenseList() {
     setGroupedExpenses(groupExpensesByDay(expenses));
   }, [expenses]);
 
-  console.log(expenses);
-
   return (
     <ul className="mx-4 text-sm flex flex-col-reverse">
       {groupedExpenses.map((group) => (
@@ -50,16 +50,20 @@ export default function ExpenseList() {
             <span>{group.total} DKK</span>
           </div>
           <SwipeableList className="flex flex-col-reverse">
-            {group.expenses.map((expense) => (
-              <SwipeableListItem key={expense.id} leadingActions={editAction(navigate, expense)} trailingActions={deleteAction(expense.id, deleteExpense)} className="flex items-center mt-2">
-                <span className="text-2xl mr-[20px]">🍔</span>
-                <div className="flex flex-col">
-                  <span className="capitalize">{expense.title}</span>
-                  <span className="text-slate-300">Category</span>
-                </div>
-                <span className="ml-auto">{expense.price} DKK</span>
-              </SwipeableListItem>
-            ))}
+            {group.expenses.map((expense) => {
+              const category = findCategory(expense.categoryId);
+
+              return (
+                <SwipeableListItem key={expense.id} leadingActions={editAction(navigate, expense)} trailingActions={deleteAction(expense.id, deleteExpense)} className="flex items-center mt-2">
+                  <span className="text-2xl mr-[20px]">{category?.icon ? category?.icon : "🫙"}</span>
+                  <div className="flex flex-col">
+                    <span className="capitalize">{expense.title}</span>
+                    <span className="text-slate-300">{category?.name ? category?.name : "No category"}</span>
+                  </div>
+                  <span className="ml-auto">{expense.price} DKK</span>
+                </SwipeableListItem>
+              );
+            })}
           </SwipeableList>
         </li>
       ))}

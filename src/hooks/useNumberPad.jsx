@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-export default function useNumberPad() {
-  const [number, setNumber] = useState("0");
+export default function useNumberPad({ defaultNumber = "" }) {
+  const [number, setNumber] = useState(defaultNumber);
 
   const handleClick = (value) => {
     switch (value) {

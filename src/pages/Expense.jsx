@@ -14,11 +14,9 @@ export default function Expense() {
   const existingExpense = location.state;
   const { editExpense } = useEditExpense();
 
-  console.log(existingExpense);
-
   const { categoriesModal, selectedCategory, setIsCategoriesModalOpen } = useCategoriesModal();
-  const { numberPad, number } = useNumberPad();
-  const { input, inputValue } = useInput({ placeholder: "Write title here...", className: "w-[45%] py-1 outline-none focus:bg-slate-100 rounded-md focus:pl-2" });
+  const { numberPad, number } = useNumberPad({ defaultNumber: existingExpense ? existingExpense.price.toString() : "0" });
+  const { input, inputValue } = useInput({ placeholder: "Write title here...", className: "w-[45%] py-1 outline-none focus:bg-slate-100 rounded-md focus:pl-2", defaultValue: existingExpense ? existingExpense.title : "" });
   const { addExpense } = useAddExpense();
 
   const expenseObject = {
