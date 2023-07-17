@@ -41,7 +41,7 @@ export default function useCategoriesModal() {
   // JSX for modal
   let categoriesModal = isCategoriesModalOpen && (
     <div onClick={handleOutsideClick} className="z-10 absolute top-0 right-0 bottom-0 left-0 bg-[#00000070] flex">
-      <div className="w-full bg-white self-end m-2 rounded-xl flex flex-col">
+      <div className="w-full bg-white self-end mx-2 mb-4 rounded-xl flex flex-col">
         <div className="grid grid-cols-3 w-full items-center px-2 mb-4">
           <span></span>
           <span className="justify-self-center text-slate-500">Categories</span>

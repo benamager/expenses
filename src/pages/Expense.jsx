@@ -48,7 +48,7 @@ export default function Expense() {
         <div className="text-sm flex justify-between items-center border-b py-2 mb-2">
           {input}
           <div>
-            {expenseObject.categoryId && <span className="text-xl mr-2">{findCategory(expenseObject.categoryId).icon}</span>}
+            {expenseObject?.categoryId && <span className="text-xl mr-2">{findCategory(expenseObject?.categoryId)?.icon}</span>}
             <Button type="secondary" text="Select category" clickHandler={() => setIsCategoriesModalOpen(true)} />
           </div>
         </div>

@@ -62,10 +62,18 @@ export default function useAddEditCategory(selectedCategory, selectCategory, set
     setIsCategoryModalOpen(false);
   }
 
+  // delete category
+  function deleteCategory(categoryId) {
+    const newCategories = categories.filter((c) => c.id !== categoryId);
+    setCategories(newCategories);
+    setSelectedCategory(null);
+    setIsCategoryModalOpen(false);
+  }
+
   // JSX for modal
   const categoryModal = isCategoryModalOpen && (
     <div onClick={handleOutsideClick} className="z-10 absolute top-0 right-0 bottom-0 left-0 bg-[#00000070] flex">
-      <div className="w-full bg-white self-end m-2 rounded-xl flex flex-col">
+      <div className="w-full bg-white self-end mx-2 mb-4 rounded-xl flex flex-col">
         <div className="w-full text-center px-2 mb-4 text-slate-500 py-2">{selectedCategory ? "Editing category" : "Adding category"}</div>
         <div className="flex flex-col mx-4 mb-2">
           <div className="flex justify-between text-sm text-slate-500 mb-1">
@@ -76,10 +84,11 @@ export default function useAddEditCategory(selectedCategory, selectCategory, set
             {nameInput}
             {iconInput}
           </div>
-          <div className="flex justify-between">
-            <Button className="text-sm" type="secondary" text="Cancel" clickHandler={() => setIsCategoryModalOpen(false)} />
-            <Button className="text-sm" type="primary" text={selectedCategory ? "Save changes" : "Add category"} clickHandler={() => (selectedCategory ? editCategory(categoryObject) : addCategory(categoryObject))} />
+          <div className={`flex justify-between ${selectedCategory && "mb-11"}`}>
+            <Button className="text-sm self-start" type="secondary" text="Cancel" clickHandler={() => setIsCategoryModalOpen(false)} />
+            <Button className="text-sm self-start" type="primary" text={selectedCategory ? "Save changes" : "Add category"} clickHandler={() => (selectedCategory ? editCategory(categoryObject) : addCategory(categoryObject))} />
           </div>
+          {selectedCategory && <Button className="text-sm bg-red-400 w-full" text="Delete category" clickHandler={() => deleteCategory(selectedCategory.id)} />}
         </div>
       </div>
     </div>
