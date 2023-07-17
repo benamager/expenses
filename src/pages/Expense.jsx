@@ -8,10 +8,12 @@ import useInput from "@/hooks/useInput";
 import useAddExpense from "@/hooks/useAddExpense";
 import useEditExpense from "@/hooks/useEditExpense";
 import Button from "@/components/Button";
+import useFindCategory from "@/hooks/useFindCategory";
 
 export default function Expense() {
   const location = useLocation();
   const existingExpense = location.state;
+  const { findCategory } = useFindCategory();
   const { editExpense } = useEditExpense();
 
   const { categoriesModal, selectedCategory, setIsCategoriesModalOpen } = useCategoriesModal();
@@ -24,7 +26,7 @@ export default function Expense() {
     title: inputValue,
     price: number,
     date: existingExpense ? new Date(existingExpense.date) : new Date(),
-    categoryId: selectedCategory ? selectedCategory.id : null,
+    categoryId: selectedCategory ? selectedCategory.id : existingExpense ? existingExpense.categoryId : null,
   };
 
   return (
@@ -46,7 +48,7 @@ export default function Expense() {
         <div className="text-sm flex justify-between items-center border-b py-2 mb-2">
           {input}
           <div>
-            {selectedCategory && <span className="text-xl mr-2">{selectedCategory.icon}</span>}
+            {expenseObject.categoryId && <span className="text-xl mr-2">{findCategory(expenseObject.categoryId).icon}</span>}
             <Button type="secondary" text="Select category" clickHandler={() => setIsCategoriesModalOpen(true)} />
           </div>
         </div>

@@ -10,7 +10,14 @@ export default function serviceWorker() {
           console.log("Service worker has been installed for the first time!");
         } else {
           console.log("Service worker has been updated!");
+          // After an update, the new service worker will take control immediately
+          wb.messageSW({ type: "SKIP_WAITING" });
         }
+      });
+
+      // Listen for the controlling service worker changing and reload the page
+      navigator.serviceWorker.addEventListener("controllerchange", () => {
+        window.location.reload();
       });
 
       wb.register();
