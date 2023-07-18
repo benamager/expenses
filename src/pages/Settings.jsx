@@ -1,9 +1,14 @@
+import { useContext } from "react";
+import SettingsContext from "@/contexts/Settings";
 import Button from "@/components/Button";
 import useResetExpensesData from "@/hooks/useResetExpensesData";
 import useDeleteCategories from "@/hooks/useDeleteCategories";
 import useCategoriesModal from "@/hooks/useCategoriesModal";
+import Switch from "react-switch";
 
 export default function Settings() {
+  const { settings, setSettings } = useContext(SettingsContext);
+
   const { resetExpensesData } = useResetExpensesData();
   const { categoriesModal, setIsCategoriesModalOpen } = useCategoriesModal();
   const { deleteCategories } = useDeleteCategories(setIsCategoriesModalOpen);
@@ -15,8 +20,26 @@ export default function Settings() {
       <ul>
         <li className="grid grid-cols-7 items-center gap-2 border-b py-3">
           <div className="col-span-5 flex flex-col">
+            <span className="text-base font-medium">Enable animations</span>
+            <span className="text-sm text-slate-500">Want things to look niiiice?</span>
+          </div>
+          <Switch
+            className="col-span-2 ml-auto"
+            onChange={() =>
+              setSettings((prevSettings) => ({
+                ...prevSettings,
+                enableAnimations: !prevSettings.enableAnimations,
+              }))
+            }
+            checked={settings.enableAnimations}
+            checkedIcon={false}
+            uncheckedIcon={false}
+          />
+        </li>
+        <li className="grid grid-cols-7 items-center gap-2 border-b py-3">
+          <div className="col-span-5 flex flex-col">
             <span className="text-base font-medium">Edit categories</span>
-            <span className="text-sm text-slate-500">Wanna customize them or make new ones?</span>
+            <span className="text-sm text-slate-500">Customize them or make new ones</span>
           </div>
           <Button className="text-sm col-span-2" type="primary" text="Edit" clickHandler={() => setIsCategoriesModalOpen(true)} />
         </li>

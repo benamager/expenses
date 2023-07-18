@@ -4,7 +4,7 @@ export default function ExpenseTable({ data }) {
       <thead>
         <tr className="text-sm">
           <th className="font-normal text-slate-300 text-left w-[14%]"></th>
-          <th className="font-normal text-slate-300 border-b text-left pb-1">Category Name</th>
+          <th className="font-normal text-slate-300 border-b text-left pb-1">Category name</th>
           <th className="font-normal text-slate-300 border-b text-center pb-1">Percent</th>
           <th className="font-normal text-slate-300 border-b text-right w-[26%] pb-1">Spent</th>
         </tr>

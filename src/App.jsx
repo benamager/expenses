@@ -3,53 +3,29 @@ import useLocalStorage from "use-local-storage";
 import Router from "@/routes/Router";
 import { ExpensesProvider } from "@/contexts/Expenses";
 import { CategoriesProvider } from "@/contexts/Categories";
-import { defaultCategories } from "./utils/defaultCategories";
+import { SettingsProvider } from "@/contexts/Settings";
+import { defaultCategories } from "@/utils/defaultCategories";
+import { defaultSettings } from "@/utils/defaultSettings";
 
 export default function App() {
   const [expenses, setExpenses] = useLocalStorage("expenses", []);
   const [categories, setCategories] = useLocalStorage("categories", []);
-  const [newUser, setNewUser] = useLocalStorage("newUser", true);
+  const [settings, setSettings] = useLocalStorage("settings", []);
 
   useEffect(() => {
-    setExpenses([
-      { id: "7h3MYKhN9feYZsGVj_lUP", title: "Lort", price: 75, date: "2023-07-18T18:37:23.153Z", categoryId: "LoS6QkA71sZCinBFCAop6" },
-      { id: "7h3MYKhN9feYZsGVj_lUP", title: "Lort", price: 75, date: "2023-07-18T18:37:23.153Z", categoryId: "LoS6QkA71sZCinBFCAop6" },
-      { id: "7h3MYKhN9feYZsGVj_lUP", title: "Lort", price: 75, date: "2023-07-18T18:37:23.153Z", categoryId: "LoS6QkA71sZCinBFCAop6" },
-      { id: "7h3MYKhN9feYZsGVj_lUP", title: "Lort", price: 75, date: "2023-07-18T18:37:23.153Z", categoryId: "LoS6QkA71sZCinBFCAop6" },
-      { id: "7h3MYKhN9feYZsGVj_lUP", title: "Lort", price: 75, date: "2023-07-18T18:37:23.153Z", categoryId: "LoS6QkA71sZCinBFCAop6" },
-      { id: "7h3MYKhN9feYZsGVj_lUP", title: "Lort", price: 75, date: "2023-07-18T18:37:23.153Z", categoryId: "LoS6QkA71sZCinBFCAop6" },
-      { id: "7h3MYKhN9feYZsGVj_lUP", title: "Lort", price: 75, date: "2023-07-18T18:37:23.153Z", categoryId: "LoS6QkA71sZCinBFCAop6" },
-      { id: "7h3MYKhN9feYZsGVj_lUP", title: "Lort", price: 75, date: "2023-07-18T18:37:23.153Z", categoryId: "LoS6QkA71sZCinBFCAop6" },
-      { id: "7h3MYKhN9feYZsGVj_lUP", title: "Lort", price: 75, date: "2023-07-18T18:37:23.153Z", categoryId: "LoS6QkA71sZCinBFCAop6" },
-      { id: "7h3MYKhN9feYZsGVj_lUP", title: "Lort", price: 75, date: "2023-07-18T18:37:23.153Z", categoryId: "LoS6QkA71sZCinBFCAop6" },
-      { id: "7h3MYKhN9feYZsGVj_lUP", title: "Lort", price: 75, date: "2023-07-18T18:37:23.153Z", categoryId: "LoS6QkA71sZCinBFCAop6" },
-      { id: "7h3MYKhN9feYZsGVj_lUP", title: "Lort", price: 75, date: "2023-07-18T18:37:23.153Z", categoryId: "LoS6QkA71sZCinBFCAop6" },
-      { id: "7h3MYKhN9feYZsGVj_lUP", title: "Lort", price: 75, date: "2023-07-18T18:37:23.153Z", categoryId: "LoS6QkA71sZCinBFCAop6" },
-      { id: "7h3MYKhN9feYZsGVj_lUP", title: "Lort", price: 75, date: "2023-07-18T18:37:23.153Z", categoryId: "LoS6QkA71sZCinBFCAop6" },
-      { id: "7h3MYKhN9feYZsGVj_lUP", title: "Lort", price: 75, date: "2023-07-18T18:37:23.153Z", categoryId: "LoS6QkA71sZCinBFCAop6" },
-      { id: "7h3MYKhN9feYZsGVj_lUP", title: "Lort", price: 75, date: "2023-07-18T18:37:23.153Z", categoryId: "LoS6QkA71sZCinBFCAop6" },
-      { id: "7h3MYKhN9feYZsGVj_lUP", title: "Lort", price: 75, date: "2023-07-18T18:37:23.153Z", categoryId: "LoS6QkA71sZCinBFCAop6" },
-      { id: "7h3MYKhN9feYZsGVj_lUP", title: "Lort", price: 75, date: "2023-07-18T18:37:23.153Z", categoryId: "LoS6QkA71sZCinBFCAop6" },
-      { id: "7h3MYKhN9feYZsGVj_lUP", title: "Lort", price: 75, date: "2023-07-18T18:37:23.153Z", categoryId: "LoS6QkA71sZCinBFCAop6" },
-      { id: "7h3MYKhN9feYZsGVj_lUP", title: "Lort", price: 75, date: "2023-07-18T18:37:23.153Z", categoryId: "LoS6QkA71sZCinBFCAop6" },
-      { id: "7h3MYKhN9feYZsGVj_lUP", title: "Lort", price: 75, date: "2023-07-18T18:37:23.153Z", categoryId: "LoS6QkA71sZCinBFCAop6" },
-      { id: "7h3MYKhN9feYZsGVj_lUP", title: "Lort", price: 75, date: "2023-07-18T18:37:23.153Z", categoryId: "LoS6QkA71sZCinBFCAop6" },
-      { id: "7h3MYKhN9feYZsGVj_lUP", title: "Lort", price: 75, date: "2023-07-18T18:37:23.153Z", categoryId: "LoS6QkA71sZCinBFCAop6" },
-      { id: "7h3MYKhN9feYZsGVj_lUP", title: "Lort", price: 75, date: "2023-07-18T18:37:23.153Z", categoryId: "LoS6QkA71sZCinBFCAop6" },
-    ]);
-  }, []);
-
-  useEffect(() => {
-    if (newUser) {
+    // new user, set default categories and settings
+    if (settings["newUser"] === undefined) {
       setCategories(defaultCategories);
-      setNewUser(false);
+      setSettings(defaultSettings);
     }
   });
 
   return (
     <ExpensesProvider value={{ expenses, setExpenses }}>
       <CategoriesProvider value={{ categories, setCategories }}>
-        <Router />
+        <SettingsProvider value={{ settings, setSettings }}>
+          <Router />
+        </SettingsProvider>
       </CategoriesProvider>
     </ExpensesProvider>
   );
