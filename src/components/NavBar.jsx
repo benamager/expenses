@@ -11,8 +11,8 @@ export default function NavBar() {
   }
 
   return (
-    <nav className="fixed left-0 right-0 bottom-0 bg-slate-100 z-10">
-      <ul className="flex justify-around mb-6 mt-1">
+    <nav className="fixed left-4 right-4 bottom-6 bg-slate-50 z-10 rounded-md shadow-md">
+      <ul className="flex justify-around my-3">
         <li>
           <NavLink to="/" className={({ isActive }) => (isActive ? "text-black" : "text-slate-400")}>
             <FaCreditCard size="25px" className="p-3 box-content" />

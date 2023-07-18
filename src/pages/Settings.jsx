@@ -11,7 +11,7 @@ export default function Settings() {
   return (
     <div className="mx-2 mt-[59px]">
       {categoriesModal}
-      <h1 className="text-2xl mb-4">Settings</h1>
+      <h1 className="text-3xl mb-4 font-medium">Settings</h1>
       <ul>
         <li className="flex items-center justify-between gap-2 border-b py-3">
           <div className="flex flex-col">

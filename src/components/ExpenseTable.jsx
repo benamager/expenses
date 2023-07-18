@@ -13,12 +13,12 @@ export default function ExpenseTable({ data }) {
         {data.map((item, index) => (
           <tr key={index} className="text-sm rounded-md">
             <td className="text-2xl text-left">{item.icon}</td>
-            <td className="text-left py-3 border-b truncate">{item.categoryName}</td>
-            <td className="text-center py-3 border-b flex items-center">
-              <div className="w-5 h-5 rounded-full mr-1" style={{ backgroundColor: item.color }}></div>
+            <td className="text-left py-4 border-b truncate">{item.categoryName}</td>
+            <td className="text-center py-4 border-b flex items-center">
+              <div className="w-4 h-4 rounded-full mr-2" style={{ backgroundColor: item.color }}></div>
               {item.percent}%
             </td>
-            <td className="text-right py-3 border-b">{item.spent} DKK</td>
+            <td className="text-right py-4 border-b">{item.spent} DKK</td>
           </tr>
         ))}
       </tbody>

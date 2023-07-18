@@ -51,8 +51,8 @@ export default function useCategoriesModal() {
         </div>
         <ul className="grid grid-cols-3 text-center h-[300px] mx-2 gap-2 overflow-y-scroll mb-2">
           {categories.map((category) => (
-            <LongPressButton key={category.id} onClick={() => selectCategory(category)} onLongPress={() => handleLongPress(category)}>
-              <li className="flex flex-col self-start active:bg-slate-100 rounded-md py-4 px-2 select-none">
+            <LongPressButton className="self-start" key={category.id} onClick={() => selectCategory(category)} onLongPress={() => handleLongPress(category)}>
+              <li className="flex flex-col active:bg-slate-100 rounded-md py-4 px-2 select-none">
                 <span className="text-3xl mb-2 text-slate-500">{category.icon}</span>
                 <span className="text-sm truncate capitalize">{category.name}</span>
               </li>
