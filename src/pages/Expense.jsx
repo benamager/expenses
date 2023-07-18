@@ -18,7 +18,11 @@ export default function Expense() {
 
   const { categoriesModal, selectedCategory, setIsCategoriesModalOpen } = useCategoriesModal();
   const { numberPad, number } = useNumberPad({ defaultNumber: existingExpense ? existingExpense.price.toString() : "0" });
-  const { input, inputValue } = useInput({ placeholder: "Write title here...", className: "w-[45%] py-1 outline-none focus:bg-slate-100 rounded-md focus:pl-2", defaultValue: existingExpense ? existingExpense.title : "" });
+  const { input, inputValue } = useInput({
+    placeholder: "Write title here...",
+    className: "w-full py-1 outline-none focus:bg-slate-100 rounded-md focus:pl-2 text-lg transform scale-[80%] -translate-x-[14px]",
+    defaultValue: existingExpense ? existingExpense.title : "",
+  });
   const { addExpense } = useAddExpense();
 
   const expenseObject = {
@@ -47,9 +51,9 @@ export default function Expense() {
         </div>
         <div className="text-sm flex justify-between items-center border-b py-2 mb-2">
           {input}
-          <div>
+          <div className="flex items-center">
             {expenseObject?.categoryId && <span className="text-xl mr-2">{findCategory(expenseObject?.categoryId)?.icon}</span>}
-            <Button type="secondary" text="Select category" clickHandler={() => setIsCategoriesModalOpen(true)} />
+            <Button className="whitespace-nowrap" type="secondary" text="Select category" clickHandler={() => setIsCategoriesModalOpen(true)} />
           </div>
         </div>
         {numberPad}

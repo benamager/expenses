@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import useLocalStorage from "use-local-storage";
 import Router from "@/routes/Router";
 import { ExpensesProvider } from "@/contexts/Expenses";
@@ -7,11 +8,14 @@ import { defaultCategories } from "./utils/defaultCategories";
 export default function App() {
   const [expenses, setExpenses] = useLocalStorage("expenses", []);
   const [categories, setCategories] = useLocalStorage("categories", []);
+  const [newUser, setNewUser] = useLocalStorage("newUser", true);
 
-  // set default categories if none exist
-  if (categories.length === 0) {
-    setCategories(defaultCategories);
-  }
+  useEffect(() => {
+    if (newUser) {
+      setCategories(defaultCategories);
+      setNewUser(false);
+    }
+  });
 
   return (
     <ExpensesProvider value={{ expenses, setExpenses }}>

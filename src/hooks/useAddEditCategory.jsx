@@ -30,7 +30,7 @@ export default function useAddEditCategory(selectedCategory, selectCategory, set
   const categoryObject = {
     id: selectedCategory ? selectedCategory.id : nanoid(),
     name: nameInputValue,
-    icon: iconInputValue.length < 1 ? "🫙" : iconInputValue,
+    icon: iconInputValue.length < 1 ? "🤷‍♂️" : iconInputValue,
   };
 
   // add category

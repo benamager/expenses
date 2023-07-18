@@ -55,7 +55,7 @@ export default function ExpenseList() {
 
               return (
                 <SwipeableListItem key={expense.id} leadingActions={editAction(navigate, expense)} trailingActions={deleteAction(expense.id, deleteExpense)} className="flex items-center mt-2">
-                  <span className="text-2xl mr-[20px]">{category?.icon ? category?.icon : "🫙"}</span>
+                  <span className="text-2xl mr-[20px]">{category?.icon ? category?.icon : "🤷‍♂️"}</span>
                   <div className="flex flex-col">
                     <span className="capitalize">{expense.title}</span>
                     <span className="text-slate-300">{category?.name ? category?.name : "No category"}</span>
