@@ -4,7 +4,7 @@ export default function LongPressButton({ onLongPress, onClick, children, ...pro
   const [pressTimer, setPressTimer] = useState(null);
 
   const startPress = () => {
-    const timerId = setTimeout(onLongPress, 500); // Long press detection after 1 second
+    const timerId = setTimeout(onLongPress, 1250); // Long press detection after 1 second
     setPressTimer(timerId);
   };
 
