@@ -6,6 +6,7 @@ import "react-swipeable-list/dist/styles.css";
 import groupExpensesByDay from "@/utils/groupExpensesByDay";
 import useAddExpense from "@/hooks/useDeleteExpense";
 import useFindCategory from "@/hooks/useFindCategory";
+import { BsFillInfoSquareFill } from "react-icons/bs";
 
 function editAction(navigate, expense) {
   // navigate to the expense page with the expense state on swipe
@@ -41,7 +42,13 @@ export default function ExpenseList() {
     setGroupedExpenses(groupExpensesByDay(expenses));
   }, [expenses]);
 
-  return (
+  return groupedExpenses.length === 0 ? (
+    <div className="text-center flex flex-col items-center mt-11 mx-1">
+      <BsFillInfoSquareFill size="30px" className="mx-auto text-slate-300 mb-4" />
+      <span className="text-lg mb-1">No expenses yet</span>
+      <span className="text-slate-500 font-light">Add some by pressing the plus icon</span>
+    </div>
+  ) : (
     <ul className="mx-4 text-sm flex flex-col-reverse">
       {groupedExpenses.map((group) => (
         <li key={group.day} className="mb-11">

@@ -4,8 +4,11 @@ import useExpenseData from "@/hooks/useExpenseData";
 import ExpenseTable from "@/components/ExpenseTable";
 import Button from "@/components/Button";
 import { dateRanges } from "@/utils/dateRanges";
+import { BsFillInfoSquareFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 export default function Stats() {
+  const navigate = useNavigate();
   const { total } = useCalculateTotal();
   const { data, chartData, dateFilter, setDateFilter } = useExpenseData();
 
@@ -15,7 +18,17 @@ export default function Stats() {
       <div className="flex items-center justify-between">
         <div className="w-full mt-4 relative mb-7 max-w-[170px]">
           <div className="absolute inset-[25%] bg-white rounded-full" />
-          <PieChart data={chartData} />
+          <PieChart
+            data={
+              chartData.length === 0
+                ? [
+                    { title: "Groceries", value: 100, color: "#E38627" },
+                    { title: "Rent", value: 300, color: "#6A2135" },
+                    { title: "Gas", value: 400, color: "#1F77B4" },
+                  ]
+                : chartData
+            }
+          />
         </div>
         <div className="flex flex-col items-end gap-1">
           {Object.keys(dateRanges).map((key) => {
@@ -27,6 +40,14 @@ export default function Stats() {
         </div>
       </div>
       <ExpenseTable data={data} />
+      {data.length === 0 && (
+        <div className="text-center flex flex-col items-center mx-1 h-[300px]">
+          <BsFillInfoSquareFill size="30px" className="mx-auto text-slate-300 mb-4 mt-[70px]" />
+          <span className="text-lg mb-1">No expenses yet</span>
+          <span className="text-slate-500 font-light mb-6">Add some to get shown your data</span>
+          <Button type="primary" text="Add expense" clickHandler={() => navigate("/expense")} />
+        </div>
+      )}
     </div>
   );
 }
