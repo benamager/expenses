@@ -7,7 +7,6 @@ export default function useDeleteCategories() {
   const navigate = useNavigate();
 
   function deleteCategories() {
-    console.log("delete categories");
     setCategories([]);
   }
 

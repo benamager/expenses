@@ -43,7 +43,7 @@ export default function Expense() {
         <h1 className="text-center text-md mt-4">{existingExpense ? "Editing expense" : "Adding expense"}</h1>
         <span></span>
       </div>
-      <SpentHeading hasTitle={false} className="border-b pb-1" amount={number} />
+      <SpentHeading hasTitle={false} className="border-b pb-1 pt-[3px]" amount={number} />
       <div className="absolute right-4 bottom-0 left-4">
         <div className="text-sm flex justify-between items-center border-b py-2">
           <span className="italic text-slate-300">{expenseObject.date.toDateString()}</span>
