@@ -1,37 +1,40 @@
 import { nanoid } from "nanoid";
 import { useState, useContext } from "react";
-import CategoriesContext from "../contexts/Categories";
+import CategoriesContext from "@/contexts/Categories";
+import useEmojiModal from "./useEmojiModal";
 import Button from "@/components/Button";
 import useInput from "./useInput";
 import { motion } from "framer-motion";
 
 export default function useAddEditCategory(selectedCategory, selectCategory, setSelectedCategory) {
   const { categories, setCategories } = useContext(CategoriesContext);
+  const { emojiModal, setIsEmojiModalOpen, isEmojiModalOpen, selectedEmoji, setSelectedEmoji } = useEmojiModal();
 
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
 
   // close modal when clicking outside of it
   function handleOutsideClick(e) {
     if (e.target.classList.contains("absolute")) {
+      if (e.target.id == "emojiIcon") return;
       setIsCategoryModalOpen(false);
       // clear selected category
       if (selectedCategory) {
         setSelectedCategory(null);
       }
+      setSelectedEmoji(null);
     }
   }
 
   const { input: nameInput, inputValue: nameInputValue } = useInput({
     placeholder: "Category name...",
-    className: "w-[80%] p-2 border border-black rounded-md outline-none",
+    className: "w-full p-2 pr-9 border border-black rounded-md outline-none",
     defaultValue: selectedCategory ? selectedCategory.name : "",
   });
-  const { input: iconInput, inputValue: iconInputValue } = useInput({ placeholder: "🥑", className: "w-[15%] p-2 border border-black rounded-md outline-none text-center", defaultValue: selectedCategory ? selectedCategory.icon : "" });
 
   const categoryObject = {
     id: selectedCategory ? selectedCategory.id : nanoid(),
     name: nameInputValue,
-    icon: iconInputValue.length < 1 ? "🤷‍♂️" : iconInputValue,
+    iconUrl: selectedEmoji,
   };
 
   // add category
@@ -41,8 +44,14 @@ export default function useAddEditCategory(selectedCategory, selectCategory, set
       return;
     }
 
+    if (!category.iconUrl) {
+      alert("Please select an icon");
+      return;
+    }
+
     setCategories([category, ...categories]);
     selectCategory(category);
+    setSelectedEmoji(null);
     setIsCategoryModalOpen(false);
   }
 
@@ -81,9 +90,12 @@ export default function useAddEditCategory(selectedCategory, selectCategory, set
             <span>Name</span>
             <span>Icon</span>
           </div>
-          <div className="w-full mb-7 flex justify-between">
-            {nameInput}
-            {iconInput}
+          <div className="w-full mb-7 flex justify-between items-center">
+            <div className="relative mr-2">
+              {selectedEmoji && <img id="emojiIcon" className="w-6 h-6 absolute right-2 top-2.5" src={selectedEmoji} alt="Image of emoji" />}
+              {nameInput}
+            </div>
+            <Button className="text-sm whitespace-nowrap self-stretch" type="primary" text="Select icon" clickHandler={() => setIsEmojiModalOpen(true)} />
           </div>
           <div className={`flex justify-between ${selectedCategory && "mb-11"}`}>
             <Button className="text-sm self-start" type="secondary" text="Cancel" clickHandler={() => setIsCategoryModalOpen(false)} />
@@ -96,5 +108,5 @@ export default function useAddEditCategory(selectedCategory, selectCategory, set
   );
 
   // return the modal and the state setter function
-  return { categoryModal, setIsCategoryModalOpen };
+  return { categoryModal: isEmojiModalOpen ? emojiModal : categoryModal, setIsCategoryModalOpen };
 }

@@ -4,6 +4,7 @@ import SpentHeading from "@/components/SpentHeading";
 import { Link } from "react-router-dom";
 import useCategoriesModal from "@/hooks/useCategoriesModal";
 import useNumberPad from "@/hooks/useNumberPad";
+import useEmojiModal from "@/hooks/useEmojiModal";
 import useInput from "@/hooks/useInput";
 import useAddExpense from "@/hooks/useAddExpense";
 import useEditExpense from "@/hooks/useEditExpense";
@@ -15,6 +16,8 @@ export default function Expense() {
   const existingExpense = location.state;
   const { findCategory } = useFindCategory();
   const { editExpense } = useEditExpense();
+
+  const { emojiModal, setIsEmojiModalOpen } = useEmojiModal();
 
   const { categoriesModal, selectedCategory, setIsCategoriesModalOpen } = useCategoriesModal();
   const { numberPad, number } = useNumberPad({ defaultNumber: existingExpense ? existingExpense.price.toString() : "0" });
@@ -35,6 +38,7 @@ export default function Expense() {
 
   return (
     <>
+      {emojiModal}
       {categoriesModal}
       <div className="text-slate-300 relative mb-11">
         <Link to="/">

@@ -128,7 +128,7 @@ export default function OldApp() {
             );
           })}
         </div>
-        <form onSubmit={addExpenseHandler} className="flex gap-2 flex-col fixed left-2 right-2 pb-2 bottom-0 bg-white">
+        <form onSubmit={addExpenseHandler} className="flex gap-2 flex-col fixed left-2 right-2 pb-2 bottom-0 bg-white z-20">
           <div className="flex">
             <input className="px-2 py-3 border bg-slate-200 rounded-md w-[48%]" type="text" name="title" id="title" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
             <input className="px-2 py-3 border bg-slate-200 rounded-md w-[48%] ml-auto" type="number" name="price" id="price" placeholder="0" value={price} onChange={(e) => setPrice(e.target.value)} />
