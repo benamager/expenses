@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import { BsFillInfoSquareFill } from "react-icons/bs";
 
 export default function useCategoriesModal(quickMode = false) {
-  const { categories } = useContext(CategoriesContext);
+  const { categories, setCategories } = useContext(CategoriesContext);
   const { settings } = useContext(SettingsContext);
 
   const [isCategoriesModalOpen, setIsCategoriesModalOpen] = useState(false);
@@ -20,6 +20,11 @@ export default function useCategoriesModal(quickMode = false) {
   // select category and close modal
   function selectCategory(category) {
     setSelectedCategory(category);
+
+    // move selected category first in array
+    const newCategories = categories.filter((c) => c.id !== category.id);
+    setCategories([category, ...newCategories]);
+
     setIsCategoriesModalOpen(false);
   }
 
