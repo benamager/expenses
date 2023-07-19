@@ -29,6 +29,10 @@ export default function useNumberPad({ defaultNumber = "" }) {
         }
         break;
       default:
+        // not let it be more than 6 digits
+        if (number.length === 9) {
+          return;
+        }
         // do not allow more than 2 decimals
         if (number.includes(".") && number.split(".")[1].length === 2) return;
         // add digit to number

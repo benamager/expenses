@@ -41,8 +41,14 @@ export default function useAddEditCategory(selectedCategory, selectCategory, set
 
   // add category
   function addCategory(category) {
-    if (category.name.length < 3) {
-      alert("Category name must be at least 3 characters long");
+    if (category.name.length == 0) {
+      alert("Category name cannot be empty");
+      return;
+    }
+
+    // category name cant be too long
+    if (category.name.length > 20) {
+      alert("Category name must be less than 20 characters");
       return;
     }
 
@@ -59,8 +65,19 @@ export default function useAddEditCategory(selectedCategory, selectCategory, set
 
   // edit category
   function editCategory(category) {
-    if (category.name.length < 3) {
-      alert("Category name must be at least 3 characters long");
+    if (category.name.length == 0) {
+      alert("Category name cannot be empty");
+      return;
+    }
+
+    // category name cant be too long
+    if (category.name.length > 20) {
+      alert("Category name must be less than 20 characters");
+      return;
+    }
+
+    if (!category.iconUrl) {
+      alert("Please select an icon");
       return;
     }
 

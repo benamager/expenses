@@ -16,7 +16,7 @@ export const defaultCategories = [
   { id: "Taxes", name: "Taxes", iconUrl: "https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f4c4.png" },
   { id: "Insurance", name: "Insurance", iconUrl: "https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f512.png" },
   { id: "Pets", name: "Pets", iconUrl: "https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f436.png" },
-  { id: "Kids", name: "Kids", iconUrl: "https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f476.png useEmojiModal.jsx:39:12" },
+  { id: "Kids", name: "Kids", iconUrl: "https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f476.png" },
   { id: "Subscriptions", name: "Subscriptions", iconUrl: "https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f4c6.png" },
   { id: "Others", name: "Others", iconUrl: "https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f50d.png" },
 ];

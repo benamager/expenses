@@ -55,8 +55,8 @@ export default function Expense() {
         </div>
         <div className="text-sm flex justify-between items-center border-b py-2 mb-2">
           {input}
-          <div className="flex items-center">
-            {expenseObject?.categoryId && <span className="text-xl mr-2">{findCategory(expenseObject?.categoryId)?.icon}</span>}
+          <div className="flex items-center justify-end w-full">
+            {expenseObject?.categoryId && <img className="w-6 h-6 mr-2" src={findCategory(expenseObject?.categoryId)?.iconUrl} alt="Image of emoji" />}
             <Button className="whitespace-nowrap" type="secondary" text="Select category" clickHandler={() => setIsCategoriesModalOpen(true)} />
           </div>
         </div>

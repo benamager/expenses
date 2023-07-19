@@ -64,10 +64,10 @@ export default function useCategoriesModal() {
         ) : (
           <ul className="grid grid-cols-3 text-center h-[300px] mx-2 gap-2 overflow-y-scroll mb-2">
             {categories.map((category) => (
-              <LongPressButton className="self-start" key={category.id} onClick={() => selectCategory(category)} onLongPress={() => handleLongPress(category)}>
+              <LongPressButton className="self-start max-h-fit" key={category.id} onClick={() => selectCategory(category)} onLongPress={() => handleLongPress(category)}>
                 <li className="flex flex-col active:bg-slate-100 rounded-md py-4 px-2 select-none items-center">
                   <img className="w-8 h-8 mb-2" src={category?.iconUrl} alt="Image of emoji" />
-                  <span className="text-sm truncate capitalize">{category.name}</span>
+                  <span className="text-sm">{category.name.charAt(0).toUpperCase() + category.name.slice(1)}</span>
                 </li>
               </LongPressButton>
             ))}
