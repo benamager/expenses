@@ -33,7 +33,7 @@ export default function Settings() {
                 enableAnimations: !prevSettings.enableAnimations,
               }))
             }
-            checked={settings.enableAnimations}
+            checked={settings?.enableAnimations}
             checkedIcon={false}
             uncheckedIcon={false}
           />

@@ -3,9 +3,11 @@ import { css } from "@emotion/react";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import SettingsContext from "@/contexts/Settings";
 import EmojiPicker from "emoji-picker-react";
 
 export default function useEmojiModal() {
+  const { settings } = useState(SettingsContext);
   const [isEmojiModalOpen, setIsEmojiModalOpen] = useState(false);
   const [selectedEmoji, setSelectedEmoji] = useState(null);
 
@@ -34,15 +36,16 @@ export default function useEmojiModal() {
 
   // select emoji and close modal
   function selectEmoji(emojiObject) {
-    //setIsEmojiModalOpen(false);
-    //setSelectedEmoji(emojiObject.target.src);
-    console.log(emojiObject.target.src);
+    setIsEmojiModalOpen(false);
+    setSelectedEmoji(emojiObject.target.src);
   }
+
+  const animationProps = settings?.enableAnimations ? { initial: { opacity: 0, y: "30vw" }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: "-30vw" } } : {};
 
   // JSX for modal
   const emojiModal = isEmojiModalOpen && (
     <div onClick={handleOutsideClick} className="z-20 absolute top-0 right-0 bottom-0 left-0 bg-[#00000030] flex transition-colors">
-      <motion.div css={style} key={isEmojiModalOpen} initial={{ opacity: 0, y: "30vw" }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: "-30vw" }} className="w-full bg-white self-end mx-2 mb-5 pb-2 rounded-xl flex flex-col shadow-md">
+      <motion.div css={style} key={isEmojiModalOpen} {...animationProps} className="w-full bg-white self-end mx-2 mb-5 pb-2 rounded-xl flex flex-col shadow-md">
         <div className="w-full text-center px-2 text-slate-500 py-2">Selecting icon</div>
         <EmojiPicker suggestedEmojisMode={false} width="100%" skinTonesDisabled={true} onEmojiClick={(e, emojiObject) => selectEmoji(emojiObject)} />
       </motion.div>

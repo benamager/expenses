@@ -1,6 +1,7 @@
 import { nanoid } from "nanoid";
 import { useState, useContext } from "react";
 import CategoriesContext from "@/contexts/Categories";
+import SettingsContext from "@/contexts/Settings";
 import useEmojiModal from "./useEmojiModal";
 import Button from "@/components/Button";
 import useInput from "./useInput";
@@ -8,6 +9,7 @@ import { motion } from "framer-motion";
 
 export default function useAddEditCategory(selectedCategory, selectCategory, setSelectedCategory) {
   const { categories, setCategories } = useContext(CategoriesContext);
+  const { settings } = useContext(SettingsContext);
   const { emojiModal, setIsEmojiModalOpen, isEmojiModalOpen, selectedEmoji, setSelectedEmoji } = useEmojiModal();
 
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
@@ -80,10 +82,12 @@ export default function useAddEditCategory(selectedCategory, selectCategory, set
     setIsCategoryModalOpen(false);
   }
 
+  const animationProps = settings?.enableAnimations ? { initial: { opacity: 0, y: "30vw" }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: "-30vw" } } : {};
+
   // JSX for modal
   const categoryModal = isCategoryModalOpen && (
     <div onClick={handleOutsideClick} className="z-10 absolute top-0 right-0 bottom-0 left-0 bg-[#00000030] flex transition-colors">
-      <motion.div key={isCategoryModalOpen} initial={{ opacity: 0, y: "30vw" }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: "-30vw" }} className="w-full bg-white self-end mx-2 mb-5 pb-2 rounded-xl flex flex-col shadow-md">
+      <motion.div key={isCategoryModalOpen} {...animationProps} className="w-full bg-white self-end mx-2 mb-5 pb-2 rounded-xl flex flex-col shadow-md">
         <div className="w-full text-center px-2 mb-4 text-slate-500 py-2">{selectedCategory ? "Editing category" : "Adding category"}</div>
         <div className="flex flex-col mx-4 mb-2">
           <div className="flex justify-between text-sm text-slate-500 mb-1">

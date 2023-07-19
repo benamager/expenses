@@ -12,7 +12,9 @@ export default function ExpenseTable({ data }) {
       <tbody>
         {data.map((item, index) => (
           <tr key={index} className="text-sm rounded-md">
-            <td className="text-2xl text-left">{item.icon}</td>
+            <td className="text-2xl text-left">
+              <img className="w-6 h-6" src={item?.iconUrl} alt="Image of emoji" />
+            </td>
             <td className="text-left py-4 border-b truncate">{item.categoryName}</td>
             <td className="text-center py-4 border-b flex items-center">
               <div className="w-4 h-4 rounded-full mr-2" style={{ backgroundColor: item.color }}></div>

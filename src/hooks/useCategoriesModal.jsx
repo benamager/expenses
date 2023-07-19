@@ -42,7 +42,7 @@ export default function useCategoriesModal() {
     setIsCategoryModalOpen(true);
   }
 
-  const animationProps = settings.enableAnimations ? { initial: { opacity: 0, y: "30vw" }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: "-30vw" } } : {};
+  const animationProps = settings?.enableAnimations ? { initial: { opacity: 0, y: "30vw" }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: "-30vw" } } : {};
 
   // JSX for modal
   let categoriesModal = isCategoriesModalOpen && (

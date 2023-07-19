@@ -59,7 +59,7 @@ export default function useExpenseData() {
       // If the category ID of the current expense hasn't been added to our data, add it
       if (!tempData[expense.categoryId]) {
         tempData[expense.categoryId] = {
-          icon: "🤷‍♂️",
+          iconUrl: "https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f937-200d-2642-fe0f.png",
           categoryName: "No Category",
           spent: 0,
           color: colors[Object.keys(tempData).length % colors.length],
@@ -73,7 +73,7 @@ export default function useExpenseData() {
     Object.keys(categoryIds).forEach((categoryId) => {
       const category = findCategory(categoryId);
       if (category) {
-        tempData[categoryId].icon = category.icon;
+        tempData[categoryId].iconUrl = category.iconUrl;
         tempData[categoryId].categoryName = category.name;
       }
     });
