@@ -61,10 +61,10 @@ export default function ExpenseList() {
               const category = findCategory(expense.categoryId);
 
               return (
-                <SwipeableListItem key={expense.id} leadingActions={editAction(navigate, expense)} trailingActions={deleteAction(expense.id, deleteExpense)} className="flex items-center mt-2">
+                <SwipeableListItem key={expense.id} leadingActions={editAction(navigate, expense)} trailingActions={deleteAction(expense.id, deleteExpense)} className="flex items-center mt-2 py-1">
                   <span className="text-2xl mr-[20px]">{category?.icon ? category?.icon : "🤷‍♂️"}</span>
                   <div className="flex flex-col">
-                    <span className="capitalize">{expense.title}</span>
+                    <span>{expense.title ? `${expense.title.charAt(0).toUpperCase() + expense.title.slice(1)}` : "No title"}</span>
                     <span className="text-slate-300">{category?.name ? category?.name : "No category"}</span>
                   </div>
                   <span className="ml-auto">{expense.price} DKK</span>
