@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 export default function Stats() {
   const navigate = useNavigate();
   const { total } = useCalculateTotal();
-  const { data, chartData, dateFilter, setDateFilter } = useExpenseData();
+  const { data, chartData, dateFilter, setDateFilter, isLoading } = useExpenseData();
 
   return (
     <div className="mx-2 mt-[59px]">
@@ -40,7 +40,7 @@ export default function Stats() {
         </div>
       </div>
       <ExpenseTable data={data} />
-      {data.length === 0 && (
+      {data.length === 0 && !isLoading && (
         <div className="text-center flex flex-col items-center mx-1 h-[300px]">
           <BsFillInfoSquareFill size="30px" className="mx-auto text-slate-300 mb-4 mt-[70px]" />
           <span className="text-lg mb-1">No expenses yet</span>

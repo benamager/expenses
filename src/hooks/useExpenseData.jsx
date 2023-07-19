@@ -9,11 +9,14 @@ export default function useExpenseData() {
   const [dateFilter, setDateFilter] = useState(dateRanges.ALL_TIME);
   const { expenses } = useContext(ExpensesContext);
   const { findCategory } = useFindCategory();
+  const [isLoading, setIsLoading] = useState(true);
 
   const [data, setData] = useState([]);
   const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
+    setIsLoading(true); // start loading
+
     // Get current date
     const now = new Date();
     // Get date for one week ago
@@ -100,7 +103,8 @@ export default function useExpenseData() {
 
     // Set the chart data state to our processed chart data
     setChartData(processedChartData);
+    setIsLoading(false); // start loading
   }, [expenses, dateFilter]); // Run this hook whenever the expenses or date filter state changes
 
-  return { data, chartData, dateFilter, setDateFilter };
+  return { data, chartData, dateFilter, setDateFilter, isLoading };
 }

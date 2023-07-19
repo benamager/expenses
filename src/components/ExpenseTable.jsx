@@ -3,7 +3,7 @@ export default function ExpenseTable({ data }) {
     <table className="w-full text-center">
       <thead>
         <tr className="text-sm">
-          <th className="font-normal text-slate-300 text-left w-[14%]"></th>
+          <th className="font-normal text-slate-300 text-left w-[10%]"></th>
           <th className="font-normal text-slate-300 border-b text-left pb-1">Category name</th>
           <th className="font-normal text-slate-300 border-b text-center pb-1">Percent</th>
           <th className="font-normal text-slate-300 border-b text-right w-[26%] pb-1">Spent</th>
@@ -12,7 +12,7 @@ export default function ExpenseTable({ data }) {
       <tbody>
         {data.map((item, index) => (
           <tr key={index} className="text-sm rounded-md">
-            <td className="text-2xl text-left">
+            <td className="text-left">
               <img className="w-6 h-6" src={item?.iconUrl} alt="Image of emoji" />
             </td>
             <td className="text-left py-4 border-b truncate">{item.categoryName}</td>

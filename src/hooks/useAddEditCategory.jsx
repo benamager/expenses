@@ -7,7 +7,7 @@ import Button from "@/components/Button";
 import useInput from "./useInput";
 import { motion } from "framer-motion";
 
-export default function useAddEditCategory(selectedCategory, selectCategory, setSelectedCategory) {
+export default function useAddEditCategory(selectedCategory, selectCategory, setSelectedCategory, quickMode = false, setIsCategoriesModalOpen) {
   const { categories, setCategories } = useContext(CategoriesContext);
   const { settings } = useContext(SettingsContext);
   const { emojiModal, setIsEmojiModalOpen, isEmojiModalOpen, selectedEmoji, setSelectedEmoji } = useEmojiModal();
@@ -36,7 +36,7 @@ export default function useAddEditCategory(selectedCategory, selectCategory, set
   const categoryObject = {
     id: selectedCategory ? selectedCategory.id : nanoid(),
     name: nameInputValue,
-    iconUrl: selectedEmoji,
+    iconUrl: selectedEmoji ? selectedEmoji : selectedCategory && selectedCategory.iconUrl,
   };
 
   // add category
@@ -59,8 +59,12 @@ export default function useAddEditCategory(selectedCategory, selectCategory, set
 
     setCategories([category, ...categories]);
     selectCategory(category);
-    setSelectedEmoji(null);
     setIsCategoryModalOpen(false);
+    setSelectedEmoji(null);
+    if (quickMode) {
+      setIsCategoriesModalOpen(true);
+      return;
+    }
   }
 
   // edit category
@@ -87,8 +91,22 @@ export default function useAddEditCategory(selectedCategory, selectCategory, set
       }
       return c;
     });
+
+    const index = newCategories.findIndex((c) => c.id === categoryObject.id);
+
+    if (index !== -1) {
+      const updatedCategory = newCategories.splice(index, 1)[0];
+      newCategories.unshift(updatedCategory);
+    }
+
     setCategories(newCategories);
     setIsCategoryModalOpen(false);
+    selectCategory(category);
+    setSelectedEmoji(null);
+    if (quickMode) {
+      setIsCategoriesModalOpen(true);
+      return;
+    }
   }
 
   // delete category
@@ -113,7 +131,11 @@ export default function useAddEditCategory(selectedCategory, selectCategory, set
           </div>
           <div className="w-full mb-7 flex justify-between items-center">
             <div className="relative mr-2">
-              {selectedEmoji && <img id="emojiIcon" className="w-6 h-6 absolute right-2 top-2.5" src={selectedEmoji} alt="Image of emoji" />}
+              {selectedEmoji ? (
+                <img id="emojiIcon" className="w-6 h-6 absolute right-2 top-2.5" src={selectedEmoji} alt="Image of emoji" />
+              ) : (
+                selectedCategory && <img id="emojiIcon" className="w-6 h-6 absolute right-2 top-2.5" src={selectedCategory.iconUrl} alt="Image of emoji" />
+              )}
               {nameInput}
             </div>
             <Button className="text-sm whitespace-nowrap self-stretch" type="primary" text="Select icon" clickHandler={() => setIsEmojiModalOpen(true)} />

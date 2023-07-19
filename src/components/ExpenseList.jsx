@@ -36,13 +36,15 @@ export default function ExpenseList() {
   const { expenses } = useContext(ExpensesContext);
   const [groupedExpenses, setGroupedExpenses] = useState([]);
   const { deleteExpense } = useAddExpense();
+  const [isLoading, setIsLoading] = useState(true);
 
   // group expenses by day
   useEffect(() => {
     setGroupedExpenses(groupExpensesByDay(expenses));
+    setIsLoading(false);
   }, [expenses]);
 
-  return groupedExpenses.length === 0 ? (
+  return groupedExpenses.length === 0 && !isLoading ? (
     <div className="text-center flex flex-col items-center mt-11 mx-1">
       <BsFillInfoSquareFill size="30px" className="mx-auto text-slate-300 mb-4" />
       <span className="text-lg mb-1">No expenses yet</span>

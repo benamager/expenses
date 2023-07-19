@@ -11,7 +11,7 @@ export default function NavBar() {
   }
 
   return (
-    <nav className="fixed left-4 right-4 bottom-6 bg-slate-50 z-10 rounded-md shadow-md">
+    <nav className="fixed left-4 right-4 bottom-6 bg-slate-50 z-10 rounded-md shadow-md max-w-2xl mx-auto">
       <ul className="flex justify-around my-3">
         <li>
           <NavLink to="/" className={({ isActive }) => (isActive ? "text-black" : "text-slate-400")}>
