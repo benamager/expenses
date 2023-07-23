@@ -40,27 +40,29 @@ export default function Expense() {
     <>
       {emojiModal}
       {categoriesModal}
-      <div className="text-slate-300 relative mb-11">
-        <Link to="/">
-          <span className="absolute left-0 text-base py-4">Cancel</span>
-        </Link>
-        <h1 className="text-center text-md mt-4">{existingExpense ? "Editing expense" : "Adding expense"}</h1>
-        <span></span>
-      </div>
-      <SpentHeading hasTitle={false} className="border-b pb-1 pt-[3px]" amount={number} />
-      <div className="absolute right-4 bottom-0 left-4">
-        <div className="text-sm flex justify-between items-center border-b py-2">
-          <span className="italic text-slate-300">{expenseObject.date.toDateString()}</span>
-          <Button type="primary" text="Save expense" clickHandler={() => (existingExpense ? editExpense(expenseObject) : addExpense(expenseObject))} />
+      <div className="flex flex-col fixed inset-0 max-w-2xl mx-auto">
+        <div className="text-slate-300 relative mb-11">
+          <Link to="/">
+            <span className="absolute left-0 text-base p-4">Cancel</span>
+          </Link>
+          <h1 className="text-center text-md mt-4">{existingExpense ? "Editing expense" : "Adding expense"}</h1>
+          <span></span>
         </div>
-        <div className="text-sm flex justify-between items-center border-b py-2 mb-2">
-          {input}
-          <div className="flex items-center justify-end w-full">
-            {expenseObject?.categoryId && <img className="w-6 h-6 mr-2" src={findCategory(expenseObject?.categoryId)?.iconUrl} alt="Image of emoji" />}
-            <Button className="whitespace-nowrap" type="secondary" text="Select category" clickHandler={() => setIsCategoriesModalOpen(true)} />
+        <SpentHeading hasTitle={false} className="border-b pb-1 pt-[3px]" amount={number} />
+        <div className="absolute right-4 bottom-0 left-4">
+          <div className="text-sm flex justify-between items-center border-b py-2">
+            <span className="italic text-slate-300">{expenseObject.date.toDateString()}</span>
+            <Button type="primary" text="Save expense" clickHandler={() => (existingExpense ? editExpense(expenseObject) : addExpense(expenseObject))} />
           </div>
+          <div className="text-sm flex justify-between items-center border-b py-2 mb-2">
+            {input}
+            <div className="flex items-center justify-end w-full">
+              {expenseObject?.categoryId && <img className="w-6 h-6 mr-2" src={findCategory(expenseObject?.categoryId)?.iconUrl} alt="Image of emoji" />}
+              <Button className="whitespace-nowrap" type="secondary" text="Select category" clickHandler={() => setIsCategoriesModalOpen(true)} />
+            </div>
+          </div>
+          {numberPad}
         </div>
-        {numberPad}
       </div>
     </>
   );

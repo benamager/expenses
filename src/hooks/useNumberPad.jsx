@@ -42,7 +42,7 @@ export default function useNumberPad({ defaultNumber = "" }) {
   };
 
   const numberPad = (
-    <div className="w-full grid grid-cols-3 pb-5 text-xl select-none">
+    <div className="w-full grid grid-cols-3 pb-8 text-xl select-none ">
       {["7", "8", "9", "4", "5", "6", "1", "2", "3", ".", "0", "DEL"].map((value, index) => (
         <div key={index} onClick={() => handleClick(value)} className="w-full py-3 rounded-md active:bg-slate-100 text-center">
           {value}

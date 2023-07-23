@@ -5,7 +5,7 @@ export default function RootLayout() {
   return (
     <div className="w-full max-w-2xl mx-auto">
       <NavBar />
-      <main className="mb-[80px] flex flex-col mx-3">
+      <main className="mb-[100px] flex flex-col mx-3">
         <Outlet />
       </main>
     </div>

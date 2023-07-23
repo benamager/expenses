@@ -52,7 +52,7 @@ export default function useCategoriesModal(quickMode = false) {
   // JSX for modal
   let categoriesModal = isCategoriesModalOpen && (
     <div onClick={handleOutsideClick} className="z-10 absolute top-0 right-0 bottom-0 left-0 bg-[#00000030] flex transition-colors">
-      <motion.div {...animationProps} className="w-full bg-white self-end mx-2 mb-5 rounded-xl flex flex-col shadow-md">
+      <motion.div {...animationProps} className="w-full bg-white self-end px-2 mb-5 rounded-xl flex flex-col shadow-md max-w-2xl mx-auto">
         <div className="grid grid-cols-3 w-full items-center px-2 mb-4">
           <span></span>
           <span className="justify-self-center text-slate-500">Categories</span>
