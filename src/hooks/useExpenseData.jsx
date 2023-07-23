@@ -83,10 +83,13 @@ export default function useExpenseData() {
 
     // Convert our data to an array format and calculate the percent spent for each category
     const processedData = Object.values(tempData)
-      .map((item) => ({
-        ...item,
-        percent: Math.round((item.spent / totalSpent) * 100),
-      }))
+      .map((item) => {
+        const percent = (item.spent / totalSpent) * 100;
+        return {
+          ...item,
+          percent: percent < 1 ? parseFloat(percent.toFixed(2)) : Math.round(percent),
+        };
+      })
       .sort((a, b) => b.percent - a.percent); // sort from highest to lowest
 
     // Set the data state to our processed data
