@@ -1,4 +1,3 @@
-import useCalculateTotal from "@/hooks/useCalculateTotal";
 import { PieChart } from "react-minimal-pie-chart";
 import useExpenseData from "@/hooks/useExpenseData";
 import ExpenseTable from "@/components/ExpenseTable";
@@ -9,12 +8,11 @@ import { useNavigate } from "react-router-dom";
 
 export default function Stats() {
   const navigate = useNavigate();
-  const { total } = useCalculateTotal();
-  const { data, chartData, dateFilter, setDateFilter, isLoading } = useExpenseData();
+  const { data, chartData, dateFilter, setDateFilter, isLoading, totalForPeriod } = useExpenseData();
 
   return (
     <div className="mx-2 mt-[59px]">
-      <span className="text-3xl font-medium">{total.toFixed(2)} DKK</span>
+      <span className="text-3xl font-medium">{totalForPeriod.toFixed(2)} DKK</span>
       <div className="flex items-center justify-between">
         <div className="w-full mt-4 relative mb-7 max-w-[170px]">
           <div className="absolute inset-[25%] bg-white rounded-full" />

@@ -13,6 +13,7 @@ export default function useExpenseData() {
 
   const [data, setData] = useState([]);
   const [chartData, setChartData] = useState([]);
+  const [totalForPeriod, setTotalForPeriod] = useState(0);
 
   useEffect(() => {
     setIsLoading(true); // start loading
@@ -106,8 +107,9 @@ export default function useExpenseData() {
 
     // Set the chart data state to our processed chart data
     setChartData(processedChartData);
+    setTotalForPeriod(totalSpent);
     setIsLoading(false); // start loading
   }, [expenses, dateFilter]); // Run this hook whenever the expenses or date filter state changes
 
-  return { data, chartData, dateFilter, setDateFilter, isLoading };
+  return { data, chartData, dateFilter, setDateFilter, isLoading, totalForPeriod };
 }
