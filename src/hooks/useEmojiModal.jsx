@@ -26,6 +26,13 @@ export default function useEmojiModal() {
       .epr-category-nav button:first-of-type {
         display: none !important;
       }
+      button.epr-emoji {
+        -webkit-user-drag: none;
+        -khtml-user-drag: none;
+        -moz-user-drag: none;
+        -o-user-drag: none;
+        user-drag: none;
+      }
     }
   `;
 

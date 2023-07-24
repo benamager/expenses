@@ -71,7 +71,7 @@ export default function useCategoriesModal(quickMode = false) {
             {categories.map((category) => (
               <LongPressButton className="self-start max-h-fit" key={category.id} onClick={quickMode ? () => handleLongPress(category) : () => selectCategory(category)} onLongPress={() => handleLongPress(category)}>
                 <li className="flex flex-col active:bg-slate-100 rounded-md py-4 px-2 select-none items-center">
-                  <img className="w-8 h-8 mb-2" src={category?.iconUrl} alt="Image of emoji" />
+                  <img className="w-8 h-8 mb-2" src={category?.iconUrl} alt="Image of emoji" draggable="false" />
                   <span className="text-sm">{category.name.charAt(0).toUpperCase() + category.name.slice(1)}</span>
                 </li>
               </LongPressButton>

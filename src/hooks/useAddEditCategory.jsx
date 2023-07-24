@@ -132,9 +132,9 @@ export default function useAddEditCategory(selectedCategory, selectCategory, set
           <div className="w-full mb-7 flex justify-between items-center">
             <div className="relative mr-2">
               {selectedEmoji ? (
-                <img id="emojiIcon" className="w-6 h-6 absolute right-2 top-2.5" src={selectedEmoji} alt="Image of emoji" />
+                <img id="emojiIcon" className="w-6 h-6 absolute right-2 top-2.5" src={selectedEmoji} alt="Image of emoji" draggable="false" />
               ) : (
-                selectedCategory && <img id="emojiIcon" className="w-6 h-6 absolute right-2 top-2.5" src={selectedCategory.iconUrl} alt="Image of emoji" />
+                selectedCategory && <img id="emojiIcon" className="w-6 h-6 absolute right-2 top-2.5" src={selectedCategory.iconUrl} alt="Image of emoji" draggable="false" />
               )}
               {nameInput}
             </div>

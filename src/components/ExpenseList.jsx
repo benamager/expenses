@@ -68,7 +68,7 @@ export default function ExpenseList({ expenses, isSearching }) {
             {group.expenses.map((expense) => {
               return (
                 <SwipeableListItem key={expense.id} leadingActions={editAction(navigate, expense)} trailingActions={deleteAction(expense.id, deleteExpense)} className="flex items-center mt-2 py-1">
-                  <img className="w-6 h-6 mr-5" src={expense?.category?.iconUrl} alt="Image of emoji" />
+                  <img className="w-6 h-6 mr-5" src={expense?.category?.iconUrl} alt="Image of emoji" draggable="false" />
                   <div className="flex flex-col">
                     <span>{expense.title ? `${expense.title.charAt(0).toUpperCase() + expense.title.slice(1)}` : "No title"}</span>
                     <span className="text-slate-300">{expense?.category?.name ? expense?.category?.name : "No category"}</span>
