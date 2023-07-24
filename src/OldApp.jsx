@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import useLocalStorage from "use-local-storage";
 import Modal from "react-modal";
 import { nanoid } from "nanoid";
+import usePopup from "@/hooks/usePopup";
 
 export default function OldApp() {
   const [expenses, setExpenses] = useLocalStorage("expenses", []);

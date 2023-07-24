@@ -6,11 +6,19 @@ import useEmojiModal from "./useEmojiModal";
 import Button from "@/components/Button";
 import useInput from "./useInput";
 import { motion } from "framer-motion";
+import usePopup from "@/hooks/usePopup";
 
 export default function useAddEditCategory(selectedCategory, selectCategory, setSelectedCategory, quickMode = false, setIsCategoriesModalOpen) {
   const { categories, setCategories } = useContext(CategoriesContext);
   const { settings } = useContext(SettingsContext);
   const { emojiModal, setIsEmojiModalOpen, isEmojiModalOpen, selectedEmoji, setSelectedEmoji } = useEmojiModal();
+
+  // handle popups
+  const [popupData, setPopupData] = useState({
+    title: "",
+    text: "",
+  });
+  const { popupJSX, triggerPopup } = usePopup({ title: popupData.title, text: popupData.text, cancelText: "Affirmative", cancelType: "primary" });
 
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
 
@@ -39,23 +47,32 @@ export default function useAddEditCategory(selectedCategory, selectCategory, set
     iconUrl: selectedEmoji ? selectedEmoji : selectedCategory && selectedCategory.iconUrl,
   };
 
-  // add category
-  function addCategory(category) {
+  function validateCategory(category) {
     if (category.name.length == 0) {
-      alert("Category name cannot be empty");
-      return;
+      setPopupData({ title: "No category name", text: "Please enter a name for your category." });
+      triggerPopup();
+      return false;
     }
 
     // category name cant be too long
     if (category.name.length > 20) {
-      alert("Category name must be less than 20 characters");
-      return;
+      setPopupData({ title: "Category name is too long", text: "Please enter a shorter name for your category." });
+      triggerPopup();
+      return false;
     }
 
     if (!category.iconUrl) {
-      alert("Please select an icon");
-      return;
+      setPopupData({ title: "Category icon is empty", text: "Please select an icon for your category." });
+      triggerPopup();
+      return false;
     }
+
+    return true;
+  }
+
+  // add category
+  function addCategory(category) {
+    if (!validateCategory(category)) return;
 
     setCategories([category, ...categories]);
     selectCategory(category);
@@ -69,21 +86,7 @@ export default function useAddEditCategory(selectedCategory, selectCategory, set
 
   // edit category
   function editCategory(category) {
-    if (category.name.length == 0) {
-      alert("Category name cannot be empty");
-      return;
-    }
-
-    // category name cant be too long
-    if (category.name.length > 20) {
-      alert("Category name must be less than 20 characters");
-      return;
-    }
-
-    if (!category.iconUrl) {
-      alert("Please select an icon");
-      return;
-    }
+    if (!validateCategory(category)) return;
 
     const newCategories = categories.map((c) => {
       if (c.id === category.id) {
@@ -122,6 +125,7 @@ export default function useAddEditCategory(selectedCategory, selectCategory, set
   // JSX for modal
   const categoryModal = isCategoryModalOpen && (
     <div onClick={handleOutsideClick} className="z-10 fixed top-0 right-0 bottom-0 left-0 bg-[#00000030] flex transition-colors justify-center">
+      {popupJSX}
       <motion.div key={isCategoryModalOpen} {...animationProps} className="w-full bg-white self-end mx-2 mb-5 pb-2 rounded-xl flex flex-col shadow-md max-w-2xl">
         <div className="w-full text-center px-2 mb-4 text-slate-500 py-2">{selectedCategory ? "Editing category" : "Adding category"}</div>
         <div className="flex flex-col mx-4 mb-2">

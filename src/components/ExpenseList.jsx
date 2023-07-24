@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { LeadingActions, SwipeableList, SwipeableListItem, SwipeAction, TrailingActions } from "react-swipeable-list";
 import "react-swipeable-list/dist/styles.css";
 import groupExpensesByDay from "@/utils/groupExpensesByDay";
-import useAddExpense from "@/hooks/useDeleteExpense";
+import useDeleteExpense from "@/hooks/useDeleteExpense";
 import { BsFillInfoSquareFill } from "react-icons/bs";
 
 function editAction(navigate, expense) {
@@ -31,7 +31,7 @@ export default function ExpenseList({ expenses, isSearching }) {
   const navigate = useNavigate();
 
   const [groupedExpenses, setGroupedExpenses] = useState([]);
-  const { deleteExpense } = useAddExpense();
+  const { deleteExpense } = useDeleteExpense();
   const [isLoading, setIsLoading] = useState(true);
 
   // group expenses by day

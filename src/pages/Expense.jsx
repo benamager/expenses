@@ -15,7 +15,7 @@ export default function Expense() {
   const location = useLocation();
   const existingExpense = location.state;
   const { findCategory } = useFindCategory();
-  const { editExpense } = useEditExpense();
+  const { editExpense, popupJSX: editExpensePopup } = useEditExpense();
 
   const { emojiModal } = useEmojiModal();
 
@@ -26,7 +26,7 @@ export default function Expense() {
     className: "w-full py-1 outline-none focus:bg-slate-100 rounded-md focus:pl-2 text-lg transform scale-[80%] -translate-x-[14px]",
     defaultValue: existingExpense ? existingExpense.title : "",
   });
-  const { addExpense } = useAddExpense();
+  const { addExpense, popupJSX: addExpensePopup } = useAddExpense();
 
   const expenseObject = {
     id: existingExpense ? existingExpense.id : nanoid(),
@@ -40,6 +40,8 @@ export default function Expense() {
     <>
       {emojiModal}
       {categoriesModal}
+      {addExpensePopup}
+      {editExpensePopup}
       <div className="flex flex-col fixed inset-0 max-w-2xl mx-auto">
         <div className="text-slate-300 relative mb-11">
           <Link to="/">

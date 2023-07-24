@@ -43,8 +43,8 @@ export default function usePopup({ title, text, confirmText, confirmType, cancel
         <h3 className="text-lg text-center mb-1 font-medium">{title}</h3>
         <p className="text-center text-sm mb-4">{text}</p>
         <div className="flex justify-between mt-2 w-full">
-          {cancelText ? <Button className="w-full mr-4" type={cancelType ? cancelType : cancelType} text={cancelText} clickHandler={() => setIsPopupOpen(false)} /> : null}
-          {confirmText ? <Button className="w-full" text={confirmText} clickHandler={confirmHandler ? confirmHandler : null} type={confirmType ? confirmType : "primary"} /> : null}
+          {cancelText ? <Button className="w-full mr-4 text-sm" type={cancelType ? cancelType : cancelType} text={cancelText} clickHandler={() => setIsPopupOpen(false)} /> : null}
+          {confirmText ? <Button className="w-full text-sm" text={confirmText} clickHandler={confirmHandler ? confirmHandler : null} type={confirmType ? confirmType : "primary"} /> : null}
         </div>
       </motion.div>
     </div>
