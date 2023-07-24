@@ -16,7 +16,7 @@ export default function useAddEditCategory(selectedCategory, selectCategory, set
 
   // close modal when clicking outside of it
   function handleOutsideClick(e) {
-    if (e.target.classList.contains("absolute")) {
+    if (e.target.classList.contains("fixed")) {
       if (e.target.id == "emojiIcon") return;
       setIsCategoryModalOpen(false);
       // clear selected category
@@ -121,8 +121,8 @@ export default function useAddEditCategory(selectedCategory, selectCategory, set
 
   // JSX for modal
   const categoryModal = isCategoryModalOpen && (
-    <div onClick={handleOutsideClick} className="z-10 absolute top-0 right-0 bottom-0 left-0 bg-[#00000030] flex transition-colors">
-      <motion.div key={isCategoryModalOpen} {...animationProps} className="w-full bg-white self-end px-2 mb-5 pb-2 rounded-xl flex flex-col shadow-md max-w-2xl mx-auto">
+    <div onClick={handleOutsideClick} className="z-10 fixed top-0 right-0 bottom-0 left-0 bg-[#00000030] flex transition-colors justify-center">
+      <motion.div key={isCategoryModalOpen} {...animationProps} className="w-full bg-white self-end mx-2 mb-5 pb-2 rounded-xl flex flex-col shadow-md max-w-2xl">
         <div className="w-full text-center px-2 mb-4 text-slate-500 py-2">{selectedCategory ? "Editing category" : "Adding category"}</div>
         <div className="flex flex-col mx-4 mb-2">
           <div className="flex justify-between text-sm text-slate-500 mb-1">
