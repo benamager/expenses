@@ -17,7 +17,7 @@ export default function Expense() {
   const { findCategory } = useFindCategory();
   const { editExpense } = useEditExpense();
 
-  const { emojiModal, setIsEmojiModalOpen } = useEmojiModal();
+  const { emojiModal } = useEmojiModal();
 
   const { categoriesModal, selectedCategory, setIsCategoriesModalOpen } = useCategoriesModal();
   const { numberPad, number } = useNumberPad({ defaultNumber: existingExpense ? existingExpense.price.toString() : "0" });

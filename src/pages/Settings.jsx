@@ -6,6 +6,7 @@ import useDeleteCategories from "@/hooks/useDeleteCategories";
 import useResetCategories from "@/hooks/useResetCategories";
 import useCategoriesModal from "@/hooks/useCategoriesModal";
 import Switch from "react-switch";
+import usePopup from "@/hooks/usePopup";
 
 export default function Settings() {
   const { settings, setSettings } = useContext(SettingsContext);
@@ -14,6 +15,33 @@ export default function Settings() {
   const { categoriesModal, setIsCategoriesModalOpen } = useCategoriesModal(true);
   const { deleteCategories } = useDeleteCategories(setIsCategoriesModalOpen);
   const { resetCategories } = useResetCategories(setIsCategoriesModalOpen);
+
+  const { popupJSX: resetPopup, triggerPopup: confirmReset } = usePopup({
+    title: "Reset expenses?",
+    text: "This deletes all of your expenses, think twice.",
+    confirmText: "Delete",
+    confirmType: "danger",
+    cancelText: "Cancel",
+    confirmHandler: () => resetExpensesData(),
+  });
+
+  const { popupJSX: resetCategoriesPopup, triggerPopup: confirmResetCategories } = usePopup({
+    title: "Reset categories?",
+    text: "This resets your categories to the default ones, think twice.",
+    confirmText: "Reset",
+    confirmType: "danger",
+    cancelText: "Cancel",
+    confirmHandler: () => resetCategories(),
+  });
+
+  const { popupJSX: deleteCategoriesPopup, triggerPopup: confirmDeleteCategories } = usePopup({
+    title: "Delete categories?",
+    text: "This deletes all of your categories, think twice.",
+    confirmText: "Delete",
+    confirmType: "danger",
+    cancelText: "Cancel",
+    confirmHandler: () => deleteCategories(),
+  });
 
   return (
     <div className="mx-2 mt-[59px]">
@@ -51,21 +79,24 @@ export default function Settings() {
             <span className="text-base">Delete all categories</span>
             <span className="text-sm text-slate-500 font-light">Wanna make your own from scratch?</span>
           </div>
-          <Button className="text-sm bg-red-400 col-span-2" text="Delete" clickHandler={() => deleteCategories()} />
+          <Button type="danger" className="text-sm col-span-2" text="Delete" clickHandler={() => confirmDeleteCategories()} />
+          {deleteCategoriesPopup}
         </li>
         <li className="grid grid-cols-7 items-center gap-2 border-b py-3">
           <div className="col-span-5 flex flex-col">
             <span className="text-base">Reset to default categories</span>
             <span className="text-sm text-slate-500 font-light">Tired of your own categories?</span>
           </div>
-          <Button className="text-sm bg-red-400 col-span-2" text="Reset" clickHandler={() => resetCategories()} />
+          <Button type="danger" className="text-sm col-span-2" text="Reset" clickHandler={() => confirmResetCategories()} />
+          {resetCategoriesPopup}
         </li>
         <li className="grid grid-cols-7 items-center gap-2 py-3">
           <div className="col-span-5 flex flex-col">
             <span className="text-base">Reset expenses data</span>
             <span className="text-sm text-slate-500  font-light">This deletes all your expenses, so think twice.</span>
           </div>
-          <Button className="text-sm bg-red-400 col-span-2" text="Reset" clickHandler={() => resetExpensesData()} />
+          <Button type="danger" className="text-sm col-span-2" text="Reset" clickHandler={() => confirmReset()} />
+          {resetPopup}
         </li>
       </ul>
     </div>

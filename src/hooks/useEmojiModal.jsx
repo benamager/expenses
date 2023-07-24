@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { motion } from "framer-motion";
 import SettingsContext from "@/contexts/Settings";
 import EmojiPicker from "emoji-picker-react";
 
 export default function useEmojiModal() {
-  const { settings } = useState(SettingsContext);
+  const { settings } = useContext(SettingsContext);
   const [isEmojiModalOpen, setIsEmojiModalOpen] = useState(false);
   const [selectedEmoji, setSelectedEmoji] = useState(null);
 
