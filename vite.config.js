@@ -4,8 +4,8 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 
 const manifest = {
-  name: "Expenses",
-  short_name: "Expenses",
+  name: "Skejs",
+  short_name: "Skejs",
   theme_color: "#ffffff",
   start_url: ".",
   display: "standalone",
