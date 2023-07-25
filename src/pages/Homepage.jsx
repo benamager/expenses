@@ -36,8 +36,8 @@ export default function Homepage() {
 
   return (
     <>
-      <Link to="expense" className="ml-auto fixed right-0">
-        <AiFillPlusCircle size="35px" className="p-3 box-content ml-auto drop-shadow-md" />
+      <Link to="expense" className="ml-auto fixed right-0 z-50">
+        <AiFillPlusCircle size="40px" className="p-3 box-content ml-auto drop-shadow-md " />
       </Link>
       <SpentHeading hasTitle={true} amount={totalForPeriod} className="mt-[59px]" />
       {expensesWithCategory.length != 0 && <>{searchInput}</>}
