@@ -10,6 +10,17 @@ export default function Stats() {
   const navigate = useNavigate();
   const { data, chartData, dateFilter, setDateFilter, isLoading, totalForPeriod } = useExpenseData();
 
+  const dataCombined = data.reduce((acc, curr) => {
+    var found = acc.find((item) => item.iconUrl === curr.iconUrl);
+    if (found) {
+      found.spent += curr.spent;
+      found.percent += curr.percent;
+    } else {
+      acc.push({ ...curr });
+    }
+    return acc;
+  }, []);
+
   return (
     <div className="mx-2 mt-[59px]">
       <span className="text-3xl font-medium">{totalForPeriod.toFixed(2)} DKK</span>
@@ -37,7 +48,7 @@ export default function Stats() {
           })}
         </div>
       </div>
-      <ExpenseTable data={data} />
+      <ExpenseTable data={dataCombined} />
       {data.length === 0 && !isLoading && (
         <div className="text-center flex flex-col items-center mx-1 h-[300px]">
           <BsFillInfoSquareFill size="30px" className="mx-auto text-slate-300 mb-4 mt-[70px]" />

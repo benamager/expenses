@@ -97,13 +97,23 @@ export default function useExpenseData() {
     setData(processedData);
 
     // Prepare data for the PieChart
-    const processedChartData = processedData
+    let processedChartData = processedData
       .map((item) => ({
         title: item.categoryName,
         value: item.percent,
         color: item.color,
       }))
       .sort((a, b) => b.value - a.value); // sort from highest to lowest
+
+    processedChartData = processedChartData.reduce((acc, curr) => {
+      var found = acc.find((item) => item.title === curr.title);
+      if (found) {
+        found.value += curr.value;
+      } else {
+        acc.push({ ...curr });
+      }
+      return acc;
+    }, []);
 
     // Set the chart data state to our processed chart data
     setChartData(processedChartData);
