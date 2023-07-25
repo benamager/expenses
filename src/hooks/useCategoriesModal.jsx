@@ -6,6 +6,7 @@ import SettingsContext from "@/contexts/Settings";
 import LongPressButton from "@/components/LongPressButton";
 import { motion } from "framer-motion";
 import { BsFillInfoSquareFill } from "react-icons/bs";
+import useScrollDetect from "@/hooks/useScrollDetect";
 
 export default function useCategoriesModal(quickMode = false) {
   const { categories, setCategories } = useContext(CategoriesContext);
@@ -13,6 +14,7 @@ export default function useCategoriesModal(quickMode = false) {
 
   const [isCategoriesModalOpen, setIsCategoriesModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const { isScrolling, scrollingRef } = useScrollDetect();
 
   // add/edit category modal
   const { categoryModal, setIsCategoryModalOpen } = useAddEditCategory(selectedCategory, selectCategory, setSelectedCategory, quickMode, setIsCategoriesModalOpen);
@@ -67,9 +69,9 @@ export default function useCategoriesModal(quickMode = false) {
             <span className="text-slate-500 font-light">Add some by pressing the plus icon</span>
           </div>
         ) : (
-          <ul className="grid grid-cols-3 text-center h-[300px] mx-2 gap-2 overflow-y-scroll mb-2">
+          <ul ref={scrollingRef} id="categoriesList" className="grid grid-cols-3 text-center h-[300px] mx-2 gap-2 overflow-y-scroll mb-2">
             {categories.map((category) => (
-              <LongPressButton className="self-start max-h-fit" key={category.id} onClick={quickMode ? () => handleLongPress(category) : () => selectCategory(category)} onLongPress={() => handleLongPress(category)}>
+              <LongPressButton className="self-start max-h-fit" key={category.id} onClick={quickMode ? () => handleLongPress(category) : () => selectCategory(category)} onLongPress={!isScrolling ? () => handleLongPress(category) : null}>
                 <li className="flex flex-col active:bg-slate-100 rounded-md py-4 px-2 select-none items-center">
                   <img className="w-8 h-8 mb-2" src={category?.iconUrl} alt="Image of emoji" draggable="false" />
                   <span className="text-sm">{category.name.charAt(0).toUpperCase() + category.name.slice(1)}</span>
