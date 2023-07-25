@@ -17,7 +17,7 @@ export default function Homepage() {
   const { expenses } = useContext(ExpensesContext);
   const { findCategory } = useFindCategory();
   const { input: searchInput, inputValue: searchQuery } = useInput({
-    placeholder: "Search by name, price and category",
+    placeholder: "Search by name, price or category",
     className: "w-full py-1 outline-none focus:bg-slate-100 rounded-md text-lg transform scale-[80%] text-right pr-2 ml-auto max-w-[344px] translate-x-6 text-black placeholder-slate-300",
   });
 

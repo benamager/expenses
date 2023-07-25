@@ -36,6 +36,11 @@ export default function usePopup({ title, text, confirmText, confirmType, cancel
   // Inside your component
   const animationProps = settings?.enableAnimations ? bounceAnimation : {};
 
+  function clickHandler() {
+    setIsPopupOpen(false);
+    confirmHandler();
+  }
+
   // JSX for the popup, only if isPopupOpen is true otherwise return null
   const popupJSX = isPopupOpen ? (
     <div onClick={handleOutsideClick} className="z-50 fixed top-0 right-0 bottom-0 left-0 bg-[#00000030] flex transition-colors justify-center">
@@ -44,7 +49,7 @@ export default function usePopup({ title, text, confirmText, confirmType, cancel
         <p className="text-center text-sm mb-4">{text}</p>
         <div className="flex justify-between mt-2 w-full">
           {cancelText ? <Button className="w-full mr-4 text-sm" type={cancelType ? cancelType : "secondary"} text={cancelText} clickHandler={() => setIsPopupOpen(false)} /> : null}
-          {confirmText ? <Button className="w-full text-sm" text={confirmText} clickHandler={confirmHandler ? confirmHandler : null} type={confirmType ? confirmType : "primary"} /> : null}
+          {confirmText ? <Button className="w-full text-sm" text={confirmText} clickHandler={confirmHandler ? clickHandler : null} type={confirmType ? confirmType : "primary"} /> : null}
         </div>
       </motion.div>
     </div>
