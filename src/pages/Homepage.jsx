@@ -36,10 +36,10 @@ export default function Homepage() {
 
   return (
     <>
-      <Link to="expense" className="ml-auto">
-        <AiFillPlusCircle size="35px" className="p-3 box-content ml-auto" />
+      <Link to="expense" className="ml-auto fixed right-0">
+        <AiFillPlusCircle size="35px" className="p-3 box-content ml-auto drop-shadow-md" />
       </Link>
-      <SpentHeading hasTitle={true} amount={totalForPeriod} />
+      <SpentHeading hasTitle={true} amount={totalForPeriod} className="mt-[59px]" />
       {expensesWithCategory.length != 0 && <>{searchInput}</>}
       <ExpenseList expenses={searchQuery.length < 1 ? expensesWithCategory : searchResults} isSearching={searchQuery.length != 0} />
     </>
