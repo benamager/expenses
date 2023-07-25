@@ -44,7 +44,7 @@ export default function Settings() {
   });
 
   return (
-    <div className="mx-2 mt-[59px]">
+    <div className="mx-2 mt-[59px] flex flex-col">
       {categoriesModal}
       <h1 className="text-3xl mb-1 font-medium">Settings</h1>
       <p className="text-slate-500 mb-4">Customize your experience</p>
@@ -99,6 +99,7 @@ export default function Settings() {
           {resetPopup}
         </li>
       </ul>
+      <p className="self-end mr-2 text-sm text-slate-500">Version 1.0.0</p>
     </div>
   );
 }
