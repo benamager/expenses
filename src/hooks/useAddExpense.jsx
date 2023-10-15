@@ -4,42 +4,35 @@ import { useNavigate } from "react-router-dom";
 import usePopup from "@/hooks/usePopup";
 
 export default function useAddExpense() {
-  const navigate = useNavigate();
-  const { setExpenses } = useContext(ExpensesContext);
+    const navigate = useNavigate();
+    const { setExpenses } = useContext(ExpensesContext);
 
-  // handle popups
-  const [popupData, setPopupData] = useState({
-    title: "",
-    text: "",
-  });
-  const { popupJSX, triggerPopup } = usePopup({ title: popupData.title, text: popupData.text, cancelText: "Affirmative", cancelType: "primary" });
+    // handle popups
+    const [popupData, setPopupData] = useState({
+        title: "",
+        text: "",
+    });
+    const { popupJSX, triggerPopup } = usePopup({ title: popupData.title, text: popupData.text, cancelText: "Affirmative", cancelType: "primary" });
 
-  // function that adds an expense to the expenses array
-  function addExpense(expenseObject) {
-    // if title is too long
-    if (expenseObject.title.length > 20) {
-      setPopupData({ title: "Title is too long", text: "Title must be less than 20 characters" });
-      triggerPopup();
-      return;
+    // function that adds an expense to the expenses array
+    function addExpense(expenseObject) {
+        if (expenseObject.price < 1) {
+            setPopupData({ title: "Price is too low", text: "Price must be greater than 0" });
+            triggerPopup();
+            return;
+        }
+
+        // if no category
+        if (!expenseObject.categoryId) {
+            setPopupData({ title: "No category selected", text: "Please select a category for your expense." });
+            triggerPopup();
+            return;
+        }
+
+        setExpenses((prevExpenses) => [...prevExpenses, expenseObject]);
+        // redirect to homepage
+        navigate("/");
     }
 
-    if (expenseObject.price < 1) {
-      setPopupData({ title: "Price is too low", text: "Price must be greater than 0" });
-      triggerPopup();
-      return;
-    }
-
-    // if no category
-    if (!expenseObject.categoryId) {
-      setPopupData({ title: "No category selected", text: "Please select a category for your expense." });
-      triggerPopup();
-      return;
-    }
-
-    setExpenses((prevExpenses) => [...prevExpenses, expenseObject]);
-    // redirect to homepage
-    navigate("/");
-  }
-
-  return { addExpense, popupJSX };
+    return { addExpense, popupJSX };
 }
